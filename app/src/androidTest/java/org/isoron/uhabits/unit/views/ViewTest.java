@@ -41,8 +41,21 @@ import static junit.framework.Assert.fail;
 
 public class ViewTest extends BaseTest
 {
-    protected static final double SIMILARITY_CUTOFF = 0.09;
+    protected static final double DEFAULT_SIMILARITY_CUTOFF = 0.09;
     public static final int HISTOGRAM_BIN_SIZE = 8;
+    private double similarityCutoff;
+
+    @Override
+    public void setup()
+    {
+        super.setup();
+        similarityCutoff = DEFAULT_SIMILARITY_CUTOFF;
+    }
+
+    protected void setSimilarityCutoff(double similarityCutoff)
+    {
+        this.similarityCutoff = similarityCutoff;
+    }
 
     protected void measureView(int width, int height, View view)
     {
@@ -70,7 +83,8 @@ public class ViewTest extends BaseTest
         double distance;
         boolean similarEnough = true;
 
-        if ((distance = compareHistograms(getHistogram(actual), getHistogram(scaledExpected))) > SIMILARITY_CUTOFF)
+        if ((distance = compareHistograms(getHistogram(actual), getHistogram(scaledExpected))) >
+                similarityCutoff)
         {
             similarEnough = false;
             errorMessage.append(String.format(

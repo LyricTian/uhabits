@@ -18,31 +18,32 @@
   ~ with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:habit="http://isoron.org/android"
-              android:id="@+id/llOuter"
-              style="@style/ListHabits.Item">
+<merge android:id="@+id/outerFrame"
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:habit="http://isoron.org/android">
 
     <LinearLayout
-        android:id="@+id/llInner"
-        style="@style/ListHabits.HabitCard">
+        android:id="@+id/innerFrame"
+        style="@style/ListHabits.HabitCard"
+        android:layout_width="match_parent">
 
         <org.isoron.uhabits.views.RingView
-            android:layout_height="15dp"
-            android:layout_width="15dp"
             android:id="@+id/scoreRing"
-            habit:thickness="3"
-            android:layout_marginTop="0dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginTop="0dp"
+            habit:thickness="3"/>
 
         <TextView
             android:id="@+id/label"
-            style="@style/ListHabits.Label" />
+            style="@style/ListHabits.Label"/>
 
-        <LinearLayout
-            android:id="@+id/llButtons"
-            style="@style/ListHabits.CheckmarkPanel" />
+        <org.isoron.uhabits.ui.habits.list.views.CheckmarkPanelView
+            android:id="@+id/checkmarkPanel"
+            style="@style/ListHabits.CheckmarkPanel"/>
+
     </LinearLayout>
 
-</LinearLayout>
+</merge>

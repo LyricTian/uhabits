@@ -29,7 +29,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,6 +40,8 @@ import org.isoron.uhabits.ui.BaseActivity;
 import org.isoron.uhabits.ui.HintManager;
 import org.isoron.uhabits.ui.habits.edit.BaseDialogFragment;
 import org.isoron.uhabits.ui.habits.edit.CreateHabitDialogFragment;
+import org.isoron.uhabits.ui.habits.list.views.HabitListView;
+import org.isoron.uhabits.ui.habits.list.views.HeaderView;
 import org.isoron.uhabits.utils.InterfaceUtils;
 
 import butterknife.BindView;
@@ -56,12 +57,14 @@ public class ListHabitsFragment extends Fragment
     private Listener habitClickListener;
     private BaseActivity activity;
 
-    @BindView(R.id.listView) HabitListView listView;
-    @BindView(R.id.llButtonsHeader) LinearLayout llButtonsHeader;
+    @BindView(R.id.listView)
+    HabitListView listView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.llEmpty) View llEmpty;
     @BindView(R.id.llHint) View llHint;
     @BindView(R.id.tvStarEmpty) TextView tvStarEmpty;
+    @BindView(R.id.header)
+    HeaderView listHeaderView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,7 +98,7 @@ public class ListHabitsFragment extends Fragment
         listView.getLoader().onResume();
         listView.refreshData(null);
         helper.updateEmptyMessage(llEmpty);
-        helper.updateHeader(llButtonsHeader);
+        listHeaderView.postInvalidate();
         hintManager.showHintIfAppropriate();
     }
 

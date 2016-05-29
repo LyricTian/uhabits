@@ -17,7 +17,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.isoron.uhabits.ui.habits.list;
+package org.isoron.uhabits.ui.habits.list.views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -31,6 +31,8 @@ import com.mobeta.android.dslv.DragSortListView;
 
 import org.isoron.uhabits.R;
 import org.isoron.uhabits.models.Habit;
+import org.isoron.uhabits.ui.habits.list.HabitListLoader;
+import org.isoron.uhabits.ui.habits.list.ListHabitsHelper;
 import org.isoron.uhabits.utils.Preferences;
 
 import java.util.Date;
@@ -39,7 +41,8 @@ import java.util.List;
 
 public class HabitListView extends DragSortListView implements View.OnClickListener,
         View.OnLongClickListener, DragSortListView.DropListener, AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener, DragSortListView.DragListener, HabitListLoader.Listener
+        AdapterView.OnItemLongClickListener, DragSortListView.DragListener, HabitListLoader.Listener,
+        HabitCardView.Listener
 {
     private final HabitListLoader loader;
     private final HabitListAdapter adapter;
@@ -63,8 +66,7 @@ public class HabitListView extends DragSortListView implements View.OnClickListe
         helper = new ListHabitsHelper(getContext(), loader);
 
         adapter.setSelectedPositions(selectedPositions);
-        adapter.setOnCheckmarkClickListener(this);
-        adapter.setOnCheckmarkLongClickListener(this);
+        adapter.setHabitCardListener(this);
         loader.setListener(this);
         loader.setCheckmarkCount(helper.getButtonCount());
 
@@ -144,7 +146,6 @@ public class HabitListView extends DragSortListView implements View.OnClickListe
         helper.toggleCheckmarkView(v, habit);
 
         long timestamp = helper.getTimestampFromCheckmarkView(v);
-
         if(listener != null) listener.onToggleCheckmark(habit, timestamp);
     }
 
@@ -232,6 +233,18 @@ public class HabitListView extends DragSortListView implements View.OnClickListe
     {
         adapter.notifyDataSetChanged();
         if(listener != null) listener.onDatasetChanged();
+    }
+
+    @Override
+    public void onToggleCheckmark(HabitCardView view, Habit habit, long timestamp)
+    {
+        if(listener != null) listener.onToggleCheckmark(habit, timestamp);
+    }
+
+    @Override
+    public void onInvalidToggle(HabitCardView view)
+    {
+        if(listener != null) listener.onInvalidToggle();
     }
 
     private class HabitsDragSortController extends DragSortController

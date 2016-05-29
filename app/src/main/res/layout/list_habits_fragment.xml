@@ -19,17 +19,17 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:dslv="http://schemas.android.com/apk/res-auto"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#ffffff">
 
-    <org.isoron.uhabits.ui.habits.list.HabitListView
+    <org.isoron.uhabits.ui.habits.list.views.HabitListView
         android:id="@+id/listView"
-        dslv:drag_enabled="true"
-        dslv:drag_start_mode="onLongPress"
-        dslv:sort_enabled="true"
-        dslv:track_drag_sort="false"
+        app:drag_enabled="true"
+        app:drag_start_mode="onLongPress"
+        app:sort_enabled="true"
+        app:track_drag_sort="false"
         android:layout_width="match_parent"
         android:background="?windowBackgroundColor"
         android:paddingTop="@dimen/checkmarkHeight"
@@ -57,23 +57,9 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <org.isoron.uhabits.ui.habits.list.views.HeaderView
         android:id="@+id/header"
-        style="@style/ListHabits.Header">
-
-        <TextView
-            android:id="@+id/tvStarHeader"
-            style="@style/ListHabits.Star"/>
-
-        <TextView
-            android:id="@+id/tvNameHeader"
-            style="@style/ListHabits.Label"
-            android:text=""/>
-
-        <LinearLayout
-            android:id="@+id/llButtonsHeader"
-            style="@style/ListHabits.CheckmarkPanel"/>
-    </LinearLayout>
+        style="@style/ListHabits.Header" />
 
     <ProgressBar
         android:id="@+id/progressBar"

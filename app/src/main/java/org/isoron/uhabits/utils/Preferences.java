@@ -83,6 +83,11 @@ public class Preferences
         return prefs.getBoolean("pref_short_toggle", false);
     }
 
+    public void setShortToggleEnabled(boolean enabled)
+    {
+        prefs.edit().putBoolean("pref_short_toggle", enabled).apply();
+    }
+
     public Integer getDefaultHabitColor(int defaultColor)
     {
         return prefs.getInt("pref_default_habit_palette_color", defaultColor);
@@ -93,4 +98,13 @@ public class Preferences
         prefs.edit().putInt("pref_default_habit_palette_color", color).apply();
     }
 
+    public boolean shouldReverseCheckmarks()
+    {
+        return prefs.getBoolean("pref_checkmark_reverse_order", false);
+    }
+
+    public void setShouldReverseCheckmarks(boolean shouldReverse)
+    {
+        prefs.edit().putBoolean("pref_checkmark_reverse_order", shouldReverse).apply();
+    }
 }
